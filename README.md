@@ -11,18 +11,18 @@ The project consists of three main components:
    - Built with React.js
    - Handles user interface and interactions
 
-2. **Backend Server (Express)**
-   - Runs on port 8080
-   - Built with Node.js and Express
+2. **Backend Server (Express/Vercel Serverless)**
+   - Runs on port 8080 (local) or as Vercel serverless functions
+   - Built with Node.js and Express/Vercel API routes
    - Handles API requests and business logic
 
 3. **Database Server (MongoDB)**
-   - Local MongoDB instance
+   - MongoDB Atlas or local MongoDB instance
    - Stores booking information
 
 ## API Endpoints
 
-### Backend API (http://localhost:8080)
+### Backend API (http://localhost:8080 or https://your-vercel-app.vercel.app)
 
 1. **Create Booking**
    - Endpoint: `/api/booking`
@@ -59,6 +59,8 @@ The project consists of three main components:
 
 ## Setup Instructions
 
+### Local Development
+
 1. **Clone the repository**
    ```bash
    git clone [repository-url]
@@ -67,25 +69,31 @@ The project consists of three main components:
 
 2. **Install Dependencies**
    ```bash
-   # Install backend dependencies
+   # Install root dependencies
+   npm install
+
+   # Install backend dependencies (for local development)
    cd backend
    npm install
 
    # Install frontend dependencies
-   cd ../client
+   cd ../frontend
    npm install
    ```
 
 3. **Environment Setup**
-   - Create a `.env` file in the backend directory
+   - Create a `.env` file in the root directory
    - Add MongoDB connection string:
      ```
      MONGO_URI=mongodb://localhost:27017/moviebooking
+     # or for MongoDB Atlas:
+     # MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/moviebooking
      ```
 
 4. **Start the Servers**
    ```bash
-   # Start MongoDB (if not running)
+   # For local development with traditional Express server
+   # Start MongoDB (if using local)
    mongod
 
    # Start backend server
@@ -93,9 +101,31 @@ The project consists of three main components:
    npm start
 
    # Start frontend server
-   cd ../client
+   cd ../frontend
    npm start
    ```
+
+### Vercel Deployment
+
+1. **Deploy to Vercel**
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+
+   # Deploy
+   vercel
+   ```
+
+2. **Environment Variables in Vercel**
+   - Go to your Vercel dashboard
+   - Navigate to your project settings
+   - Add environment variable:
+     - Name: `MONGO_URI`
+     - Value: Your MongoDB connection string
+
+3. **API Access**
+   - Your API will be available at: `https://your-app-name.vercel.app/api/booking`
+   - Update your frontend to use this URL instead of localhost:8080
 
 ## Technologies Used
 
@@ -107,7 +137,7 @@ The project consists of three main components:
 
 - **Backend**
   - Node.js
-  - Express.js
+  - Express.js (local) / Vercel Serverless Functions (production)
   - MongoDB
   - Mongoose
 
@@ -117,12 +147,30 @@ The project consists of three main components:
    - All movie names, slots, and seat types are hardcoded in `data.js`
    - Use proper class names for styling
    - Implement localStorage for selection persistence
-   - Handle all fetch requests through proxy to localhost:8080
+   - Handle all fetch requests through proxy to localhost:8080 (local) or direct to Vercel API (production)
 
 2. **Backend Development**
    - Follow the provided schema for database structure
    - Implement proper error handling
    - Validate all incoming requests
+   - For Vercel: Use serverless functions in the `/api` directory
+
+## Project Structure
+
+```
+├── api/
+│   └── booking.js          # Vercel serverless API route
+├── backend/
+│   ├── index.js            # Traditional Express server (for local dev)
+│   ├── connector.js        # MongoDB connection
+│   ├── schema.js           # Database schema
+│   └── package.json        # Backend dependencies
+├── frontend/
+│   └── [React app files]
+├── package.json            # Root dependencies for Vercel
+├── vercel.json            # Vercel configuration
+└── README.md
+```
 
 ## Testing
 

@@ -1,0 +1,16 @@
+{
+  "name": "movie-booking-app",
+  "version": "1.0.0",
+  "description": "Movie ticket booking application for Vercel",
+  "main": "api/booking.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for API routes'"
+  },
+  "dependencies": {
+    "mongoose": "^7.5.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+} 
