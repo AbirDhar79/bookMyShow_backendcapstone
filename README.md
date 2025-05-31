@@ -5,24 +5,37 @@ A fullstack movie booking application inspired by BookMyShow, built with React f
 ## 🏗️ Project Structure
 
 ```
-├── frontend/          # React frontend application (port 3000)
-├── backend/           # Express.js backend API (port 8080)
-├── public/           # Built frontend files (generated)
-└── vercel.json       # Vercel deployment configuration
+├── frontend/              # React frontend application (port 3000)
+│   ├── src/              # React source code
+│   ├── dist/             # Built frontend files (generated)
+│   ├── vercel.json       # Vercel deployment configuration
+│   └── package.json      # Frontend dependencies
+├── backend/              # Express.js backend API (port 8080)
+│   ├── index.js          # Express server
+│   ├── connector.js      # MongoDB connection
+│   ├── schema.js         # Database schema
+│   └── package.json      # Backend dependencies
+└── README.md
 ```
 
 ## 🚀 Deployment
 
 ### Frontend Deployment on Vercel
 
-The frontend can be deployed to Vercel using the included `vercel.json` configuration:
+The frontend can be deployed to Vercel:
 
 1. **Connect your GitHub repository to Vercel**
-2. **Vercel will automatically build and deploy** using the configuration in `vercel.json`
-3. **Build process**: 
-   - Installs dependencies in `frontend/`
-   - Runs `npm run build` which creates optimized files in `public/`
+2. **Select `frontend` as your Root Directory** in the Vercel deployment settings
+3. **Vercel will automatically build and deploy** using the `vercel.json` configuration in the frontend folder
+4. **Build process**: 
+   - Installs dependencies in the frontend directory
+   - Runs `npm run build` which creates optimized files in `frontend/dist/`
    - Serves the built React app
+
+**Important**: When setting up the project in Vercel, make sure to:
+- Set **Root Directory** to `frontend`
+- The build files will be created in `frontend/dist/`
+- No additional configuration needed - `vercel.json` handles everything
 
 ### Backend Deployment Options
 
