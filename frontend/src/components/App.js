@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../styles/App.css';
 import '../styles/bootstrap.min.css';
 import { movies, slots, seats } from './data';
+import config from '../config';
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState('');
@@ -40,7 +41,7 @@ const App = () => {
 
   const fetchLastBooking = async () => {
     try {
-      const response = await fetch('/api/booking');
+      const response = await fetch(`${config.API_URL}/api/booking`);
       const data = await response.json();
       setLastBooking(data);
     } catch (error) {
@@ -72,7 +73,7 @@ const App = () => {
     if (!isBookingValid()) return;
 
     try {
-      const response = await fetch('/api/booking', {
+      const response = await fetch(`${config.API_URL}/api/booking`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
